@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import netfox_ios
 
 class TextViewController: UIViewController {
     
@@ -41,6 +42,11 @@ class TextViewController: UIViewController {
         }
         
         dataTask?.resume()
+
+        let vc = NFX.sharedInstance().getMainViewController()
+
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     private func handleCompletion(error: String?, data: Data?) {
