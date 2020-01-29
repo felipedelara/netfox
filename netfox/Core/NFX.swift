@@ -271,7 +271,23 @@ extension NFX {
 
         presentingViewController?.present(navigationController, animated: true, completion: nil)
     }
-    
+
+    public func getNavigationController() -> UINavigationController
+    {
+        let navigationController = UINavigationController(rootViewController: NFXListController_iOS())
+               navigationController.navigationBar.isTranslucent = false
+               navigationController.navigationBar.tintColor = UIColor.NFXOrangeColor()
+               navigationController.navigationBar.barTintColor = UIColor.NFXStarkWhiteColor()
+               navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.NFXOrangeColor()]
+
+               if #available(iOS 13.0, *) {
+                   navigationController.presentationController?.delegate = self
+               }
+        navigationController.tabBarController?.hidesBottomBarWhenPushed = true
+
+        return navigationController
+    }
+
     fileprivate func hideNFXFollowingPlatform(_ completion: (() -> Void)?)
     {
         presentingViewController?.dismiss(animated: true, completion: { () -> Void in

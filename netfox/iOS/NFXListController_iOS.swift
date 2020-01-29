@@ -22,7 +22,9 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+
+        self.tabBarController?.tabBar.isHidden = true
+
         self.edgesForExtendedLayout = UIRectEdge.all
         self.extendedLayoutIncludesOpaqueBars = true
         self.automaticallyAdjustsScrollViewInsets = false
@@ -35,8 +37,6 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
         self.view.addSubview(self.tableView)
         
         self.tableView.register(NFXListCell.self, forCellReuseIdentifier: NSStringFromClass(NFXListCell.self))
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.NFXClose(), style: .plain, target: self, action: #selector(NFXListController_iOS.closeButtonPressed))
 
         let rightButtons = [
             UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(NFXListController_iOS.trashButtonPressed)),
@@ -86,7 +86,13 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
             name: NSNotification.Name.NFXDeactivateSearch,
             object: nil)        
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+
+
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
